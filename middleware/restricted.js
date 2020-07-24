@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secrets");
 
-const Users = require("../routers/users/users-model");
+const Users = require("../routers/users-model");
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
