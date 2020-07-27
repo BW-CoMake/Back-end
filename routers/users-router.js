@@ -10,7 +10,7 @@ const router = express.Router();
 //GET all users for Co-Make
 
 router.get("/", restricted, (req, res) => {
-  console.log("req.jwtToken", req.jwtToken);
+  // console.log("req.jwtToken", req.jwtToken);
 
   Users.find()
     .then((users) => {
@@ -22,7 +22,7 @@ router.get("/", restricted, (req, res) => {
 //GET request users profile
 
 router.get("/:id", restricted, async (req, res) => {
-  console.log("req.jwtToken", req.jwtToken);
+  // console.log("req.jwtToken", req.jwtToken);
   const { id } = req.params;
   try {
     const getUser = await Users.findById(id);
@@ -41,7 +41,7 @@ router.get("/:id", restricted, async (req, res) => {
 
 router.put("/:id", restricted, validateUserUpdate, (req, res) => {
   const id = req.params.id;
-  console.log(id);
+  // console.log(id);
 
   Users.update(id, req.body)
     .then((user) => {
