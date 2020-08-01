@@ -46,14 +46,14 @@ router.post("/login", validateLoginInfo, (req, res) => {
 });
 
 function generateToken(user) {
-  console.log("secret.jwtsecret:", secret.jwtSecret);
+  // console.log("secret.jwtsecret:", secret.jwtSecret);
   const jwtPayload = {
     subject: user.id,
     email: user.email,
   };
   // const jwtSecret = process.env.JWT_SECRET;
   const jwtOptions = {
-    expiresIn: "10d",
+    expiresIn: "5d",
   };
   return jwt.sign(jwtPayload, secret.jwtSecret, jwtOptions);
 }
