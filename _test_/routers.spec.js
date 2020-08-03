@@ -32,7 +32,7 @@ describe("server", () => {
     describe("register", () => {
       it("should return 201 for creating new user", () => {
         return request(server)
-          .post(`/auth/register`)
+          .post(`/api/auth/register`)
           .send({
             email: "steven@gmail.com",
             username: "Steven",
@@ -49,7 +49,7 @@ describe("server", () => {
           // rest client and make a get to '/', look at the status code
 
           return request(server)
-            .post("/auth/login")
+            .post("/api/auth/login")
             .send({
               email: "steven@gmail.com",
               password: "123pass",
@@ -66,7 +66,7 @@ describe("server", () => {
   describe("get all users", () => {
     it("should return 200 for getting users", () => {
       return request(server)
-        .get(`/users/`)
+        .get(`/api/users/`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -77,7 +77,7 @@ describe("server", () => {
   describe("get single user by id", () => {
     it("should return 200 for getting correct user", () => {
       return request(server)
-        .get(`/users/1`)
+        .get(`/api/users/1`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -94,7 +94,7 @@ describe("server", () => {
         description: "test",
       };
       return request(server)
-        .post(`/issues`)
+        .post(`/api/issues`)
         .set("authorization", token)
         .send(newIssue)
         .then((res) => {
@@ -111,7 +111,7 @@ describe("server", () => {
         comment: "test-comment",
       };
       return request(server)
-        .post(`/comments/`)
+        .post(`/api/comments/`)
         .set("authorization", token)
         .send(newComment)
         .then((res) => {
@@ -123,25 +123,8 @@ describe("server", () => {
   describe("get list of issues created by a user", () => {
     it("should return 200 for getting correct user", () => {
       return request(server)
-        .get(`/users/1`)
+        .get(`/api/users/1`)
         .set("authorization", token)
-        .then((res) => {
-          expect(res.status).toBe(200);
-        });
-    });
-  });
-
-  describe("update user info", () => {
-    it("should return 200 for user update", () => {
-      return request(server)
-        .put(`/users/1`)
-        .set("authorization", token)
-        .send({
-          email: "steven@gmail.com",
-          username: "Steven",
-          password: "123pass",
-          zipCode: 10065,
-        })
         .then((res) => {
           expect(res.status).toBe(200);
         });
@@ -151,7 +134,7 @@ describe("server", () => {
   describe("update issue info", () => {
     it("should return 200 for issue update", () => {
       return request(server)
-        .put(`/issues/1`)
+        .put(`/api/issues/1`)
         .set("authorization", token)
         .send({
           user_id: "1",
@@ -168,7 +151,7 @@ describe("server", () => {
   describe("get single comment by id", () => {
     it("should return 200 for getting correct comment", () => {
       return request(server)
-        .get(`/comments/1`)
+        .get(`/api/comments/1`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -179,7 +162,7 @@ describe("server", () => {
   describe("get single issue by id", () => {
     it("should return 200 for getting correct issue", () => {
       return request(server)
-        .get(`/issues/1`)
+        .get(`/api/issues/1`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -195,7 +178,7 @@ describe("server", () => {
     };
     it("should return 200 for issue update", () => {
       return request(server)
-        .put(`/comments/1`)
+        .put(`/api/comments/1`)
         .set("authorization", token)
         .send(updatedComment)
         .then((res) => {
@@ -211,7 +194,7 @@ describe("server", () => {
         issue_id: "1",
       };
       return request(server)
-        .post(`/upvotes/issue`)
+        .post(`/api/upvotes/issue`)
         .set("authorization", token)
         .send(newUpvote)
         .then((res) => {
@@ -227,7 +210,7 @@ describe("server", () => {
         comment_id: "1",
       };
       return request(server)
-        .post(`/upvotes/comment`)
+        .post(`/api/upvotes/comment`)
         .set("authorization", token)
         .send(newUpvote)
         .then((res) => {
@@ -239,7 +222,7 @@ describe("server", () => {
   describe("get single issue with comments", () => {
     it("should return 200 for getting correct issue with the comments attached", () => {
       return request(server)
-        .get(`/issues/1/withComments`)
+        .get(`/api/issues/1/withComments`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -250,7 +233,7 @@ describe("server", () => {
   describe("get single issue with comments", () => {
     it("should return 200 for getting correct comments from an issue id", () => {
       return request(server)
-        .get(`/issues/1/comments`)
+        .get(`/api/issues/1/comments`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -261,7 +244,7 @@ describe("server", () => {
   describe("get single issue by id", () => {
     it("should return 200 for getting correct issue by id", () => {
       return request(server)
-        .get(`/issues/1`)
+        .get(`/api/issues/1`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -272,7 +255,7 @@ describe("server", () => {
   describe("delete comment upvote", () => {
     it("should return 200 for deleting upvote on a comment", () => {
       return request(server)
-        .delete(`/upvotes/1/comment`)
+        .delete(`/api/upvotes/1/comment`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -283,7 +266,7 @@ describe("server", () => {
   describe("delete issue", () => {
     it("should return 200 for deleting issue", () => {
       return request(server)
-        .delete(`/issues/1`)
+        .delete(`/api/issues/1`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
@@ -294,7 +277,7 @@ describe("server", () => {
   describe("delete user", () => {
     it("should return 200 for deleting user info", () => {
       return request(server)
-        .delete(`/users/1`)
+        .delete(`/api/users/1`)
         .set("authorization", token)
         .then((res) => {
           expect(res.status).toBe(200);
